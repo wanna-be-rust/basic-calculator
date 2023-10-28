@@ -1,16 +1,15 @@
 use std::error::Error;
+// mod ask_for_choice;
 
+// ask_for_choice::get_choice(&["Free", "Guided"]).unwrap();
 
 fn main() {
     println!("Welcome to a basic calculator!");
 
-    let choices = [
-        "FREE",
-        "GUIDED"
-    ];
+    let choices = ["FREE", "GUIDED"];
 
     for choice in choices {
-        println!("- {}", choice)
+        println!("- {}", choice);
     }
 
     let user_selection: usize = handle_user_input();
@@ -21,8 +20,7 @@ fn main() {
         println!("Guided Mode Started");
 
         init_guided_mode()
-    }
-    else {
+    } else {
         println!("Free Mode Started")
     }
 }
@@ -43,7 +41,6 @@ fn match_mode<'a>(selection: usize, choices: &'a [&str]) -> &'a str {
         1 => {
             println!("You selected {}", choices[0]);
             current_selection = choices[0];
-
         }
         2 => {
             println!("You selected {}", choices[1]);
@@ -52,7 +49,7 @@ fn match_mode<'a>(selection: usize, choices: &'a [&str]) -> &'a str {
         _ => {
             println!("Invalid option. Please try again");
             let sel = handle_user_input();
-            current_selection = match_mode(sel, choices)
+            current_selection = match_mode(sel, choices);
         }
     }
 
@@ -66,14 +63,14 @@ fn init_guided_mode() {
     let second: i32;
 
     loop {
-        let first_number: Result<i32, Box<dyn Error>> = handle_number_input();  
-        
+        let first_number: Result<i32, Box<dyn Error>> = handle_number_input();
+
         if first_number.is_ok() {
             first = first_number.unwrap();
             break;
         }
     }
-    
+
     loop {
         let second_number: Result<i32, Box<dyn Error>> = handle_number_input();
         if second_number.is_ok() {
@@ -85,7 +82,6 @@ fn init_guided_mode() {
     println!("{} + {} = {}", first, second, first + second)
 }
 
-
 fn handle_number_input() -> Result<i32, Box<dyn Error>> {
     println!("Insert a number: ");
 
@@ -94,8 +90,8 @@ fn handle_number_input() -> Result<i32, Box<dyn Error>> {
         Ok(value) => value,
         Err(err) => {
             println!("Not a numeric input!");
-            return Err(Box::new(err))
-        }        
+            return Err(Box::new(err));
+        }
     };
 
     Ok(current_number)
